@@ -1,0 +1,39 @@
+@charset "UTF-8";
+.loginError{
+	font-weight:bold;
+	color:#F30100;
+	font-size:15px;
+	position: absolute;
+ 	right: 0px;
+  	left: 0px;
+  	margin: auto;
+  	width: 320px;
+  	height:100px;
+}
+.login{
+	color :#0054A6;
+}
+.line{
+	height: 1px;
+	border-width: 0;
+	background-color: #00bcd4;
+	margin-bottom:15px;
+}
+.position-form{
+	position: absolute;
+  	top: 0px;
+ 	right: 0px;
+  	bottom:240px;
+  	left: 0px;
+  	margin: auto;
+  	width: 300px;
+  	height:100px;
+}
+.btn{
+position: absolute;
+  	top: 240px;
+ 	right: 0px;
+  	bottom:370px;
+  	left: 20px;
+  	margin: auto;
+}

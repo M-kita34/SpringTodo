@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<link th:href="@{/css/addTodoCss.css}"  rel="stylesheet"></link>
+<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+<title>Todo追加画面</title>
+</head>
+<body>
+	<form method="post" action="/addTodo" th:object="${addTodoForm}">
+		<table border="1">
+			 <tr>
+			 	<th>
+					<label class="title">Todo</label>
+				</th>
+				<th>
+					<input type="text" th:field="*{item_name}">
+				</th>
+			 </tr>
+			 <tr>
+			 	<th>
+					<label class="title">担当者</label>
+				</th>
+				<th>
+					<select id="user" th:field="*{user}">
+						<option th:each="item:${userDate}"
+								th:text="${item.Family_name + item.First_name}" th:value="${item.id}"
+								th:field="*{user}">
+						</option>
+					</select>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label class="title">期限</label>
+				</th>
+				<th>
+					<input type="date" th:field="*{limit}">
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label class="title">完了</label>
+				</th>
+				<th>
+					<input type="checkbox" th:value="1" th:field="*{complete}">
+					<input type="hidden"   th:value="0" th:field="*{complete}">完了
+
+				</th>
+			</tr>
+		</table>
+		<input class="btn btn-primary" type="submit" value="登録">
+		<input type="hidden" name="search" th:value="${search}">
+	</form>
+		<form method="post" action="/todoList">
+			<input class="btn btn-primary" type="submit" value="戻る">
+			<input type="hidden" name="search" th:value="${search}">
+		</form>
+</body>
+</html>

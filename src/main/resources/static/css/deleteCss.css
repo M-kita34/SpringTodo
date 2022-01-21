@@ -1,0 +1,25 @@
+@charset "UTF-8";
+table{
+		font-size:18px;
+		padding:1px 1px;
+		margin-left:30px;
+}
+.red{
+	background-color :#F37167 !important ;
+	color : #F30100 ;
+}
+table tr{
+	background-color :#fff;
+}
+table tr:nth-child(odd){
+	background-color :#99CCFF;
+}
+.center{
+	text-align: center
+}
+.yes{
+	margin-left:30px;
+}
+.no{
+	margin-left:5px;
+}

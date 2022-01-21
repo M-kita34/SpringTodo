@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>ToDoリスト</title>
+
+<link th:href="@{/css/searchTodoCss.css}"  rel="stylesheet"></link>
+</head>
+<body>
+
+<div class="search">
+</div>
+	<table border="1" >
+		<tr>
+			<th class="heading">項目</th>
+			<th class="heading">担当者</th>
+			<th class="heading">登録日</th>
+			<th class="heading">期限</th>
+			<th class="heading">完了日</th>
+			<th class="heading">操作</th>
+		</tr>
+		<tr th:each="todo : ${searchedTodo}"
+			th:classappend="(${todo.expired} ? 'red ': '' ) + (${todo.is_deleted} ? finish : '')">
+			<td th:text="${todo.item_name}"></td>
+			<td th:text="${todo.fullname}"></td>
+			<td th:text="${todo.registration_date}"></td>
+			<td th:text="${todo.expire_date}"></td>
+			<td  class="center" th:if="${todo.finished_date == null}">未</td>
+			<td th:text="${todo.finished_date}" th:unless="${todo.finished_date == null}"></td>
+			<td>
+				<div style="display:inline-flex">
+					<form method="post" action="/complete">
+						<input type="submit" value="完了">
+						<input type="hidden" name="id" th:value="${todo.id}">
+						<input type="hidden" name="search" th:value="${search}">
+					</form>
+					<form method="post" action="/edit">
+						<input type="submit" value="更新">
+						<input type="hidden" name="id" th:value="${todo.id}">
+						<input type="hidden" name="search" th:value="${search}">
+					</form>
+					<form method="post" action="/delete">
+						<input type="submit" value="削除">
+						<input type="hidden" name="id" th:value="${todo.id}">
+						<input type="hidden" name="search" th:value="${search}">
+					</form>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div style="display:inline-flex">
+		<form method="get" action="/addTodo">
+			<input class="btn" type="submit" value="作業追加">
+			<input type="hidden" name="search" th:value="${search}">
+		</form>
+		<form method="get" action="/login">
+			<input class="btn" type="submit" value="ログアウト">
+		</form>
+		<form method="get" action="/todoList">
+			<input class="btn" type="submit" value="TOPへ">
+		</form>
+	</div>
+</body>
+</html>

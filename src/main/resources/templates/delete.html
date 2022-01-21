@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<link th:href="@{/css/deleteCss.css}"  rel="stylesheet"></link>
+<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+<title>Todo削除確認ページ</title>
+</head>
+<body>
+<h2>　削除する項目</h2>
+<table border="1" >
+		<tr>
+			<tr>
+			<th>項目</th>
+			<th>担当者</th>
+			<th>登録日</th>
+			<th>期限</th>
+			<th>完了日</th>
+		</tr>
+		<tr th:each="todo : ${deleteTodo}"
+			th:classappend="(${todo.expired} ? 'red ': '' ) + (${todo.is_deleted} ? finish : '')">
+			<td th:text="${todo.item_name}"></td>
+			<td th:text="${todo.fullname}"></td>
+			<td th:text="${todo.registration_date}"></td>
+			<td th:text="${todo.expire_date}"></td>
+			<td  class="center" th:if="${todo.finished_date == null}">未</td>
+			<td th:text="${todo.finished_date}" th:unless="${todo.finished_date == null}"></td>
+		</tr>
+	</table>
+	<h2>　削除してよろしいですか？</h2>
+	<div style="display:inline-flex">
+		<form class="yes" method="post" action="deleteTodo">
+			<input class="btn btn-primary" type="submit" value="削除">
+			<input type="hidden" name="id" th:value="${deleteId}">
+			<input type="hidden" name="search" th:value="${search}">
+		</form>
+		<form class="no" method="post" action="todoList">
+			<input class="btn btn-primary" type="submit" value="キャンセル">
+			<input type="hidden" name="search" th:value="${search}">
+		</form>
+	</div>
+</body>
+</html>

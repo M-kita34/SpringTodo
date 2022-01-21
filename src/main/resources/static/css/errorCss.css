@@ -1,0 +1,26 @@
+@charset "UTF-8";
+.head{
+	color :#0054A6;
+}
+.line{
+	height: 1px;
+	border-width: 0;
+	background-color: #00bcd4;
+	margin-bottom:15px;
+}
+
+.errorMessage{
+	position: absolute;
+ 	right: 0px;
+  	left:50px;
+  	margin: auto;
+  	width: 320px;
+  	height:100px;
+  	font-weight:bold;
+	color:#F30100;
+}
+.back{
+	position: absolute;
+	margin-top:10px;
+  	margin-left: 345px;
+}

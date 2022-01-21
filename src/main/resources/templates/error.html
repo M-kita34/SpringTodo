@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/errorCss.css}"  rel="stylesheet"></link>
+<link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+<title>hasError</title>
+</head>
+<body>
+<h1 class="head">ログイン</h1>
+<div class="line"></div>
+
+<label class="errorMessage">エラーが発生しました</label><br>
+<a href="/todoList" class="btn btn-primary back">戻る</a>
+
+</body>
+</html>

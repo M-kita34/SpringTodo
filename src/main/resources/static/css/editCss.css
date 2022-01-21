@@ -1,0 +1,22 @@
+@charset "UTF-8";
+.heading{
+		text-align: center
+}
+table{
+	font-size:18px;
+	padding:1px 1px;
+}
+.title{
+	color:#FFF;
+	text-align:center;
+	width:110px;
+	background:#000080;
+	padding:1px 1px;
+}
+.center{
+	text-align:center;
+}
+.btn{
+	float :left ;
+	margin-right:5px;
+}

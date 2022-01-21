@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<link th:href="@{/css/todoListCss.css}"  rel="stylesheet"></link>
+
+<title>ToDoリスト</title>
+</head>
+<body>
+	<div class="listHeader" style="display:inline-flex">
+		<h1>作業一覧</h1>
+		<h4 class="welcome"><span>ようこそ</span><span class="real" th:text="${loginName}"></span><span>さん</span></h4>
+		<div class="search">
+			<form method="post" action="/searchTodo">
+				<input type="text" name="search" th:value="${search_value}">
+				<input class="btnSearch" type="submit" value="検索">
+			</form>
+		</div>
+	</div>
+	<div  class="header"></div>
+	<table border="1" >
+		<tr>
+			<th>項目</th>
+			<th>担当者</th>
+			<th>登録日</th>
+			<th>期限</th>
+			<th>完了日</th>
+			<th>操作</th>
+		</tr>
+		<tr th:each="todo : ${todoList}"
+			th:classappend="(${todo.expired} ? 'red ': '' ) + (${todo.finished_date} ? finish : '')">
+			<td th:text="${todo.item_name}"></td>
+			<td th:text="${todo.fullname}"></td>
+			<td th:text="${todo.registration_date}"></td>
+			<td th:text="${todo.expire_date}"></td>
+			<td  class="center" th:if="${todo.finished_date == null}">未</td>
+			<td th:text="${todo.finished_date}" th:unless="${todo.finished_date == null}"></td>
+			<td>
+				<div style="display:inline-flex">
+					<form class="editBtn" method="post" action="/complete">
+						<input type="submit" value="完了">
+						<input type="hidden" name="id" th:value="${todo.id}">
+					</form>
+					<form class="editBtn" method="post" action="/edit">
+						<input type="submit" value="更新">
+						<input type="hidden" name="id" th:value="${todo.id}">
+					</form>
+					<form class="editBtn" method="post" action="/delete">
+						<input type="submit" value="削除">
+						<input type="hidden" name="id" th:value="${todo.id}">
+					</form>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div class="other" style="display:inline-flex">
+		<form method="get" action="/addTodo">
+			<input class="btn" type="submit" value="作業追加">
+		</form>
+		<form class="logout" method="get" action="/login">
+			<input class="btn" type="submit" value="ログアウト">
+		</form>
+	</div>
+</body>
+</html>
