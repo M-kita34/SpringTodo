@@ -37,6 +37,7 @@ public String getTodoList(Model model,@AuthenticationPrincipal UserDetails userD
 	model.addAttribute("loginName",familyName);
 	List<Todo> todoList = todoService.getTodo();
 	model.addAttribute("todoList",todoList);
+
 	return "todoList";
 }
 
