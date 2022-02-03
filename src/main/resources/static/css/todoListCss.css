@@ -1,12 +1,28 @@
 @charset "UTF-8";
 .header{
+	display:flex;
+}
+.logout{
+	margin-top:32px;
+}
+.header-line{
 	height: 1px;
 	border-width: 0;
 	background-color: #00bcd4;
 	margin-bottom:15px;
 }
+.allList{
+	margin-right:10px;
+	font-size: 15px;
+	text-align:center;
+	width:100px;
+	border-radius:3px;
+	box-shadow:1px 1px #1A6EA0;
+}
 .search{
-	margin-top:30px;
+	margin-top:15px;
+	margin-bottom:15px;
+	display: flex;
 }
 .welcome{
 	margin-top:32px;
@@ -32,7 +48,7 @@ table tr:nth-child(even){
 .editBtn{
 	margin-left:3px;
 }
-.btn{
+.add{
 	font-size: 15px;
 	text-align:center;
 	width:110px;

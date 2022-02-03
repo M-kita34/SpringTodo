@@ -54,11 +54,9 @@
 			</tr>
 		</table>
 		<input class="btn btn-primary" type="submit" value="登録">
-		<input type="hidden" name="search" th:value="${search}">
 	</form>
-		<form method="post" action="/todoList">
+		<form method="get" action="/todoList">
 			<input class="btn btn-primary" type="submit" value="戻る">
-			<input type="hidden" name="search" th:value="${search}">
 		</form>
 </body>
 </html>

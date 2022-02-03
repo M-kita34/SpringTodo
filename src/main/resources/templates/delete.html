@@ -24,7 +24,7 @@
 		<tr th:each="todo : ${deleteTodo}"
 			th:classappend="(${todo.expired} ? 'red ': '' ) + (${todo.is_deleted} ? finish : '')">
 			<td th:text="${todo.item_name}"></td>
-			<td th:text="${todo.fullname}"></td>
+			<td th:text="${todo.family_name + todo.first_name}"></td>
 			<td th:text="${todo.registration_date}"></td>
 			<td th:text="${todo.expire_date}"></td>
 			<td  class="center" th:if="${todo.finished_date == null}">未</td>
@@ -36,11 +36,9 @@
 		<form class="yes" method="post" action="deleteTodo">
 			<input class="btn btn-primary" type="submit" value="削除">
 			<input type="hidden" name="id" th:value="${deleteId}">
-			<input type="hidden" name="search" th:value="${search}">
 		</form>
-		<form class="no" method="post" action="todoList">
+		<form class="no" method="get" action="todoList">
 			<input class="btn btn-primary" type="submit" value="キャンセル">
-			<input type="hidden" name="search" th:value="${search}">
 		</form>
 	</div>
 </body>

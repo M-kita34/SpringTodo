@@ -8,17 +8,23 @@
 <title>ToDoリスト</title>
 </head>
 <body>
-	<div class="listHeader" style="display:inline-flex">
+	<div class="header">
 		<h1>作業一覧</h1>
 		<h4 class="welcome"><span>ようこそ</span><span class="real" th:text="${loginName}"></span><span>さん</span></h4>
-		<div class="search">
-			<form method="post" action="/searchTodo">
-				<input type="text" name="search" th:value="${search_value}">
-				<input class="btnSearch" type="submit" value="検索">
-			</form>
-		</div>
+		<form class="logout" method="get" action="/login">
+			<input class="btn" type="submit" value="ログアウト">
+		</form>
 	</div>
-	<div  class="header"></div>
+	<div  class="header-line"></div>
+	<div class="search">
+		<form method="get" action="/todoList">
+			<input class="allList" type="submit" value="全件表示">
+		</form>
+		<form method="get" action="/todoList">
+			<input type="text" name="search" th:value="${search_value}">
+			<input class="btnSearch" type="submit" value="検索">
+		</form>
+	</div>
 	<table border="1" >
 		<tr>
 			<th>項目</th>
@@ -31,7 +37,7 @@
 		<tr th:each="todo : ${todoList}"
 			th:classappend="(${todo.expired} ? 'red ': '' ) + (${todo.finished_date} ? finish : '')">
 			<td th:text="${todo.item_name}"></td>
-			<td th:text="${todo.fullname}"></td>
+			<td th:text="${todo.Family_name + todo.First_name}"></td>
 			<td th:text="${todo.registration_date}"></td>
 			<td th:text="${todo.expire_date}"></td>
 			<td  class="center" th:if="${todo.finished_date == null}">未</td>
@@ -56,10 +62,7 @@
 	</table>
 	<div class="other" style="display:inline-flex">
 		<form method="get" action="/addTodo">
-			<input class="btn" type="submit" value="作業追加">
-		</form>
-		<form class="logout" method="get" action="/login">
-			<input class="btn" type="submit" value="ログアウト">
+			<input class="add" type="submit" value="作業追加">
 		</form>
 	</div>
 </body>

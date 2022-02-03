@@ -11,25 +11,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>更新する項目</h2>
-<table border="1" >
-		<tr>
-			<th class="heading">項目</th>
-			<th class="heading">担当者</th>
-			<th class="heading">登録日</th>
-			<th class="heading">期限</th>
-			<th class="heading">完了日</th>
-		</tr>
-		<tr th:each="todo : ${editTodo}">
-			<td th:text="${todo.item_name}"></td>
-			<td th:text="${todo.fullname}"></td>
-			<td th:text="${todo.registration_date}"></td>
-			<td th:text="${todo.expire_date}"></td>
-			<td  class="center" th:if="${todo.finished_date == null}">未</td>
-			<td th:text="${todo.finished_date}" th:unless="${todo.finished_date == null}"></td>
-		</tr>
-	</table>
-
 <h2>更新内容</h2>
 <form method="post" action="/editTodo" th:object="${editTodoForm}">
 	<table border="1">
@@ -49,7 +30,7 @@
 				<select id="user" th:field="*{user}">
 					<option th:each="item:${userDate}"
 							th:text="${item.Family_name + item.First_name}"
-							th:value="${item.id}" th:field="*{user}">
+							th:value="${item.id}">
 					</option>
 				</select>
 			</th>
@@ -59,7 +40,7 @@
 				<label>期限</label>
 			</th>
 			<th>
-				<input type="date" th:field="*{limit}">
+				<input type="date" th:field="*{expire_date}">
 			</th>
 		</tr>
 		<tr>
@@ -67,19 +48,17 @@
 				<label>完了</label>
 			</th>
 			<th>
-				<input type="checkbox" th:value="1" th:field="*{complete}">
-				<input type="hidden"   th:value="0" th:field="*{complete}">完了
+				<input type="checkbox" th:value="1" th:field="*{is_deleted}">
+				<input type="hidden"   th:value="0" th:field="*{is_deleted}">完了
 			</th>
 		</tr>
 	</table>
 
 	<input class="btn btn-primary" type="submit" value="更新">
-	<input type="hidden" name="id" th:value="${editId}" th:field="*{id}">
-	<input type="hidden" name="search" th:value="${search}">
+	<input type="hidden" name="id"  th:field="*{id}">
 </form>
-<form method="post" action="/todoList">
+<form method="get" action="/todoList">
 	<input class="btn btn-primary" type="submit" value="戻る">
-	<input type="hidden" name="search" th:value="${search}">
 </form>
 </body>
 </html>
