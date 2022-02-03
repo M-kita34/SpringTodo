@@ -30,8 +30,8 @@ public List<Todo> searchTodo(String search) {
 	return searchTodo;
 
 }
-public List<Todo> getSingleTodo(int id) {
-	List<Todo> singleTodo = todo_itemsDao.getSingleTodo(id);
+public Todo getSingleTodo(int id) {
+	Todo singleTodo = todo_itemsDao.getSingleTodo(id);
 	return singleTodo;
 }
 public int settingEditTodo(Todo todo) {

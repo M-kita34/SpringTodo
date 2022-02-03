@@ -1,7 +1,6 @@
 package com.example.demo.controler;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,30 +34,18 @@ public String getTodoList(Model model,@AuthenticationPrincipal UserDetails userD
 	String user = userDetail.getUsername();
 	String familyName = usersService.nameSpecific(user);
 	model.addAttribute("loginName",familyName);
-	List<Todo> todoList = todoService.getTodo();
-	model.addAttribute("todoList",todoList);
-
+	if(search == "" || search == null) {
+		List<Todo> todoList = todoService.getTodo();
+		model.addAttribute("todoList",todoList);
+	}else {
+		List<Todo> searchTodo = todoService.searchTodo(search);
+		model.addAttribute("todoList",searchTodo);
+	}
 	return "todoList";
 }
 
-@PostMapping("/todoList")
-public String postTodoList(Model model,@AuthenticationPrincipal UserDetails userDetail,
-						   @RequestParam(name = "search",required = false)String search) {
-	if(search == "") {
-		return "redirect:/todoList";
-	}
-	model.addAttribute("search",search);
-	List<Todo> searchTodo = todoService.searchTodo(search);
-	model.addAttribute("searchedTodo",searchTodo);
-	return "searchedTodo";
-}
-
 @GetMapping("/addTodo")
-public String GetAddTodo(@ModelAttribute AddTodoForm form,Model model,
-		@RequestParam(name = "search",required = false)String search) {
-	if(search != "") {
-		model.addAttribute("search",search);
-	}
+public String getAddTodo(@ModelAttribute AddTodoForm form,Model model) {
 	model.addAttribute(form);
 	List<User> userDate = usersService.getUser();
 	model.addAttribute("userDate",userDate);
@@ -66,33 +53,20 @@ public String GetAddTodo(@ModelAttribute AddTodoForm form,Model model,
 }
 
 @PostMapping("/addTodo")
-public String PostAddTodo(@ModelAttribute @Validated AddTodoForm form,
-						   BindingResult bindingResult,Model model,
-						   @RequestParam(name = "search",required = false)String search) {
+public String postAddTodo(@ModelAttribute @Validated AddTodoForm form,
+						   BindingResult bindingResult,Model model) {
 	if(bindingResult.hasErrors() ) {
-		return "redirect:/error";
+		return getAddTodo(form,model);
 	}
 	Todo todo = new Todo(form);
 	todoService.addTodo(todo);
-	if(search != "") {
-		model.addAttribute("search",search);
-		List<Todo> searchTodo = todoService.searchTodo(search);
-		model.addAttribute("searchedTodo",searchTodo);
-		return "searchedTodo";
-	}else {
-		return "redirect:/todoList";
-	}
+	return "redirect:/todoList";
 }
 
 @PostMapping("/complete")
-public String postComplate(@RequestParam("id") int id,@RequestParam(name = "search",required = false)String search,Model model) {
+public String postComplate(@RequestParam("id") int id,Model model) {
 	int number = todoService.completeTodo(id);
-	if(number == 1 && search != null){
-		model.addAttribute("search",search);
-		List<Todo> searchTodo = todoService.searchTodo(search);
-		model.addAttribute("searchedTodo",searchTodo);
-		return "searchedTodo";
-	}else if(number == 1){
+	if(number == 1){
 		return "redirect:/todoList";
 	}else {
 		return "error";
@@ -100,35 +74,27 @@ public String postComplate(@RequestParam("id") int id,@RequestParam(name = "sear
 }
 
 @PostMapping("/edit")
-public String postEdit(@RequestParam("id") int id,Model model ,
-						@RequestParam(name = "search",required = false)String search,
-						@ModelAttribute EditTodoForm form) {
-	if(search != null) {
-		model.addAttribute("search",search);
-	}
-	List<Todo> editTodo = todoService.getSingleTodo(id);
-	model.addAttribute("editId",id);
-	model.addAttribute("editTodo",editTodo);
+public String postEdit(@RequestParam("id") int id,Model model ,@ModelAttribute EditTodoForm form) {
+	Todo singleTodo = todoService.getSingleTodo(id);
+		form.setId(id);
+		form.setItem_name(singleTodo.getItem_name());
+		form.setExpire_date(singleTodo.getExpire_date());
+		form.setIs_deleted(singleTodo.getIs_deleted());
+	model.addAttribute("editTodoForm",form);
 	List<User> userDate = usersService.getUser();
 	model.addAttribute("userDate",userDate);
-	model.addAttribute(form);
 	return "edit";
 }
 
 @PostMapping("/editTodo")
 public String postEditTodo(@ModelAttribute @Validated EditTodoForm form,
-		   BindingResult bindingResult,Model model,@RequestParam(name = "search",required = false)String search) {
+		   BindingResult bindingResult,Model model) {
 	if(bindingResult.hasErrors() ) {
-		return "redirect:/error";
+		return postEdit(form.getId(),model,form);
 	}
 	Todo todo = new Todo(form);
 	int number = todoService.settingEditTodo(todo);
-	if(number == 1 && search != "") {
-		model.addAttribute("search",search);
-		List<Todo> searchTodo = todoService.searchTodo(search);
-		model.addAttribute("searchedTodo",searchTodo);
-		return "searchedTodo";
-	}else if(number == 1){
+	if(number == 1){
 		return "redirect:/todoList";
 	}else {
 		return "error";
@@ -137,39 +103,20 @@ public String postEditTodo(@ModelAttribute @Validated EditTodoForm form,
 }
 
 @PostMapping("/delete")
-public String postDelete(@RequestParam("id")int id,@RequestParam(name = "search",required = false)String search,Model model) {
-	List<Todo> deleteTodo = todoService.getSingleTodo(id);
-	model.addAttribute("deleteTodo",deleteTodo);
+public String postDelete(@RequestParam("id")int id,Model model) {
+	Todo singleTodo = todoService.getSingleTodo(id);
+	model.addAttribute("deleteTodo",singleTodo);
 	model.addAttribute("deleteId",id);
-	if(search != null) {
-		model.addAttribute("search",search);
-	}
 	return "/delete";
 }
 
 @PostMapping("/deleteTodo")
-public String PostDelete(@RequestParam("id")int id,@RequestParam(name = "search",required = false)String search,Model model) {
+public String PostDelete(@RequestParam("id")int id,Model model) {
 	int number = todoService.deleteTodo(id);
-	if(number == 1 && search != ""){
-		model.addAttribute("search",search);
-		List<Todo> searchTodo = todoService.searchTodo(search);
-		model.addAttribute("searchedTodo",searchTodo);
-		return "searchedTodo";
-	}else if(number == 1){
+	if(number == 1){
 		return "redirect:/todoList";
 	}else {
 		return "error";
 	}
-}
-
-@PostMapping("/searchTodo")
-public String PostSearchTodo(@RequestParam("search")String search,Model model) {
-	if(search == "") {
-		return "redirect:/todoList";
-	}
-	model.addAttribute("search",search);
-	List<Todo> searchTodo = todoService.searchTodo(search);
-	model.addAttribute("searchedTodo",searchTodo);
-	return "searchedTodo";
 }
 }

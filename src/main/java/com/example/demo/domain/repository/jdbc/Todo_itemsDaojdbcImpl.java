@@ -50,8 +50,10 @@ PasswordEncoder passwordEncoder;
 				todoDate.setUser_id(user_id);
 			String item_name = (String)recode.get("item_name");
 				todoDate.setItem_name(item_name);
-			String fullname = (String)recode.get("Family_name") + " " + (String)recode.get("First_name");
-				todoDate.setFullname(fullname);
+			String family_name = (String)recode.get("Family_name");
+				todoDate.setFamily_name(family_name);
+			String first_name = (String)recode.get("First_name");
+				todoDate.setFirst_name(first_name);
 	    	Date registration_date = (Date)recode.get("registration_date");
 	    		todoDate.setRegistration_date(registration_date);
 	    	Date expire_date = (Date)recode.get("expire_Date");
@@ -104,8 +106,10 @@ PasswordEncoder passwordEncoder;
 					todoDate.setUser_id(user_id);
 				String item_name = (String)recode.get("item_name");
 					todoDate.setItem_name(item_name);
-				String fullname = (String)recode.get("Family_name") + " " + (String)recode.get("First_name");
-					todoDate.setFullname(fullname);
+				String family_name = (String)recode.get("Family_name");
+					todoDate.setFamily_name(family_name);
+				String first_name = (String)recode.get("First_name");
+					todoDate.setFirst_name(first_name);
 		    	Date registration_date = (Date)recode.get("registration_date");
 		    		todoDate.setRegistration_date(registration_date);
 		    	Date expire_date = (Date)recode.get("expire_Date");
@@ -125,32 +129,20 @@ PasswordEncoder passwordEncoder;
 	}
 
 	@Override
-	public List<Todo> getSingleTodo(int editId) throws DataAccessException {
-		List<Map<String,Object>> getEditTodo = jdbc.queryForList("SELECT * FROM todo_items inner join users on todo_items.user_id = users.id "
+	public Todo getSingleTodo(int editId) throws DataAccessException {
+		Map<String, Object> getTodo = jdbc.queryForMap("SELECT * FROM todo_items inner join users on todo_items.user_id = users.id "
 			+ "WHERE todo_items.id LIKE " + editId + " ;");
-		ArrayList<Todo> todoList = new ArrayList<>();
-		for(Map<String,Object> recode : getEditTodo) {
-		Todo todoDate = new Todo();
-		int id = (Integer)recode.get("id");
-			todoDate.setId(id);
-		int user_id = (Integer)recode.get("user_id");
-			todoDate.setUser_id(user_id);
-		String item_name = (String)recode.get("item_name");
-			todoDate.setItem_name(item_name);
-		String fullname = (String)recode.get("Family_name") + " " + (String)recode.get("First_name");
-			todoDate.setFullname(fullname);
-    	Date registration_date = (Date)recode.get("registration_date");
-    		todoDate.setRegistration_date(registration_date);
-    	Date expire_date = (Date)recode.get("expire_Date");
-    		todoDate.setExpire_date(expire_date);
-		Date finished_date = (Date)recode.get("finished_date");
-			todoDate.setFinished_date(finished_date);
-		int is_deleted = (Integer)recode.get("is_deleted");
-			todoDate.setIs_deleted(is_deleted);
-
-		todoList.add(todoDate);
- 	}
-	return todoList;
+		Todo singleTodo = new Todo();
+			singleTodo.setId((Integer)getTodo.get("id"));
+			singleTodo.setUser_id((Integer)getTodo.get("user_id"));
+			singleTodo.setFamily_name((String)getTodo.get("family_name"));
+			singleTodo.setFirst_name((String)getTodo.get("first_name"));
+			singleTodo.setItem_name((String)getTodo.get("item_name"));
+			singleTodo.setRegistration_date((Date)getTodo.get("registration_date"));
+			singleTodo.setExpire_date((Date)getTodo.get("Expire_date"));
+			singleTodo.setFinished_date((Date)getTodo.get("finished_date"));
+			singleTodo.setIs_deleted((Integer)getTodo.get("is_deleted"));
+		return singleTodo;
 	}
 
 	@Override
