@@ -1,15 +1,6 @@
 @charset "UTF-8";
-.header{
-	display:flex;
-}
 .logout{
 	margin-top:32px;
-}
-.header-line{
-	height: 1px;
-	border-width: 0;
-	background-color: #00bcd4;
-	margin-bottom:15px;
 }
 .allList{
 	margin-right:10px;
