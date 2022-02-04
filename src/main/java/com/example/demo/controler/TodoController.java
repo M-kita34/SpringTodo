@@ -93,7 +93,7 @@ public String postEdit(@RequestParam("id") int id, @ModelAttribute EditTodoForm 
 @PostMapping("/editTodo")
 public String postEditTodo(@ModelAttribute @Validated EditTodoForm form,
 		   BindingResult bindingResult,Model model) {
-	if(bindingResult.hasErrors() ) {
+	if(bindingResult.hasErrors()){
 		return postEdit(form.getId(),form,model);
 	}
 	Todo todo = new Todo(form);
