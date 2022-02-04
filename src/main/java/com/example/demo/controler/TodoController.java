@@ -74,12 +74,16 @@ public String postComplate(@RequestParam("id") int id,Model model) {
 }
 
 @PostMapping("/edit")
-public String postEdit(@RequestParam("id") int id,Model model ,@ModelAttribute EditTodoForm form) {
+public String postEdit(@RequestParam("id") int id, @ModelAttribute EditTodoForm form,Model model) {
 	Todo singleTodo = todoService.getSingleTodo(id);
 		form.setId(id);
+		form.setUser(singleTodo.getUser_id());
 		form.setItem_name(singleTodo.getItem_name());
 		form.setExpire_date(singleTodo.getExpire_date());
-		form.setIs_deleted(singleTodo.getIs_deleted());
+		form.setFinished_date(singleTodo.getFinished_date());
+		if(singleTodo.getFinished_date() != null) {
+			form.setEnd(1);
+		}
 	model.addAttribute("editTodoForm",form);
 	List<User> userDate = usersService.getUser();
 	model.addAttribute("userDate",userDate);
@@ -90,7 +94,7 @@ public String postEdit(@RequestParam("id") int id,Model model ,@ModelAttribute E
 public String postEditTodo(@ModelAttribute @Validated EditTodoForm form,
 		   BindingResult bindingResult,Model model) {
 	if(bindingResult.hasErrors() ) {
-		return postEdit(form.getId(),model,form);
+		return postEdit(form.getId(),form,model);
 	}
 	Todo todo = new Todo(form);
 	int number = todoService.settingEditTodo(todo);

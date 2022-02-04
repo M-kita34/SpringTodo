@@ -37,7 +37,7 @@ public Todo(AddTodoForm form) {
 		Date today = new Date();
 		this.item_name = form.getItem_name();
 		this.user_id = (Integer)form.getUser();
-		this.expire_date = form.getLimit();
+		this.expire_date = form.getExpire_date();
 		if(form.getComplete()==1) {
 			this.finished_date = today ;
 		}else {
@@ -54,7 +54,9 @@ public Todo(EditTodoForm form) {
 	this.item_name = form.getItem_name();
 	this.user_id = (Integer)form.getUser();
 	this.expire_date = form.getExpire_date();
-	if(form.getIs_deleted()==1) {
+	if(form.getFinished_date() != today && form.getEnd() == 1) {
+		this.finished_date = form.getFinished_date() ;
+	}else if(form.getEnd() == 1){
 		this.finished_date = today ;
 	}else {
 		this.finished_date = null ;

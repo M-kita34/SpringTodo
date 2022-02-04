@@ -19,7 +19,13 @@
 				<label>変更後</label>
 			</th>
 			<th>
-				<input type="text" th:field="*{item_name}">
+				<input type="text" th:field="*{item_name}"
+				th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
+				<br th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
+				<span class="error" th:classappend="${#fields.hasErrors('item_name')} ? 'errorMessage'"
+					th:errors="*{item_name}">
+					item_name error
+				</span>
 			</th>
 		</tr>
 		<tr>
@@ -30,7 +36,7 @@
 				<select id="user" th:field="*{user}">
 					<option th:each="item:${userDate}"
 							th:text="${item.Family_name + item.First_name}"
-							th:value="${item.id}">
+							th:value="${item.id}" th:selected="${item.id == editTodoForm.user}">
 					</option>
 				</select>
 			</th>
@@ -40,7 +46,13 @@
 				<label>期限</label>
 			</th>
 			<th>
-				<input type="date" th:field="*{expire_date}">
+				<input type="date" th:field="*{expire_date}"
+				th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
+				<br th:classappend="${#fields.hasErrors('expire_date')} ? 'has-error'">
+				<span class="error" th:classappend="${#fields.hasErrors('expire_date')} ? 'errorMessage'"
+					th:errors="*{expire_date}">
+					item_name error
+				</span>
 			</th>
 		</tr>
 		<tr>
@@ -48,14 +60,17 @@
 				<label>完了</label>
 			</th>
 			<th>
-				<input type="checkbox" th:value="1" th:field="*{is_deleted}">
-				<input type="hidden"   th:value="0" th:field="*{is_deleted}">完了
+				<input type="checkbox" name="*{end}" th:value="1"
+					   th:checked = "*{end} == 1 ? true : false">
+				<input type="hidden"   name="*{end}" th:value="0">完了
 			</th>
 		</tr>
 	</table>
 
 	<input class="btn btn-primary" type="submit" value="更新">
-	<input type="hidden" name="id"  th:field="*{id}">
+	<input type = "hidden" th:field=*{finished_date}>
+	<input type="hidden" th:field="*{id}">
+	<input type="hidden" th:field="*{finished_date}">
 </form>
 <form method="get" action="/todoList">
 	<input class="btn btn-primary" type="submit" value="戻る">

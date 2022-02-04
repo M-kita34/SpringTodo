@@ -20,3 +20,10 @@ table{
 	float :left ;
 	margin-right:5px;
 }
+.has-error{
+	background-color :#F37167 ;
+}
+.errorMessage{
+	color:red;
+	font-weight:lighter;
+}

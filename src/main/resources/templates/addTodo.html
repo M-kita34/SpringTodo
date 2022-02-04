@@ -18,7 +18,13 @@
 					<label class="title">Todo</label>
 				</th>
 				<th>
-					<input type="text" th:field="*{item_name}">
+					<input type="text" th:field="*{item_name}"
+					th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
+					<br th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
+					<span class="error" th:classappend="${#fields.hasErrors('item_name')} ? 'errorMessage'"
+						th:errors="*{item_name}">
+						item_name error
+					</span>
 				</th>
 			 </tr>
 			 <tr>
@@ -39,7 +45,13 @@
 					<label class="title">期限</label>
 				</th>
 				<th>
-					<input type="date" th:field="*{limit}">
+					<input type="date" th:field="*{expire_date}"
+				th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
+				<br th:classappend="${#fields.hasErrors('expire_date')} ? 'has-error'">
+				<span class="error" th:classappend="${#fields.hasErrors('expire_date')} ? 'errorMessage'"
+					th:errors="*{expire_date}">
+					item_name error
+				</span>
 				</th>
 			</tr>
 			<tr>

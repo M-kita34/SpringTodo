@@ -13,11 +13,11 @@ import lombok.Data;
 @Data
 public class AddTodoForm {
 @NotBlank
-@Length(max=100)
+@Length(max=50)
 private String item_name;
 private int user;
 @DateTimeFormat(pattern ="yyyy-MM-dd")
 @NotNull
-private Date limit;
+private Date expire_date;
 private int complete;
 }
