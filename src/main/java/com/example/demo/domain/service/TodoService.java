@@ -25,6 +25,12 @@ public int completeTodo(int id) {
 	int number = todo_itemsDao.completeTodo(id);
 	return number;
 }
+
+public int notCompleteTodo(int id) {
+	int number = todo_itemsDao.notCompleteTodo(id);
+	return number;
+}
+
 public List<Todo> searchTodo(String search) {
 	List<Todo> searchTodo = todo_itemsDao.searchTodo(search);
 	return searchTodo;

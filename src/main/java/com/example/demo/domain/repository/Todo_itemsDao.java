@@ -9,6 +9,7 @@ public interface Todo_itemsDao {
 	public List<Todo> getTodo() throws DataAccessException;
 	public int deleteTodo(int id) throws DataAccessException;
 	public int completeTodo(int id) throws DataAccessException;
+	public int notCompleteTodo(int id) throws DataAccessException;
 	public List<Todo> searchTodo(String search) throws DataAccessException;
 	public Todo getSingleTodo(int id) throws DataAccessException;
 	public int settingEditTodo(Todo todo) throws DataAccessException;

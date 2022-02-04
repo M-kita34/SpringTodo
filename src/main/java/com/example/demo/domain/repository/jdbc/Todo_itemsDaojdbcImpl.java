@@ -89,6 +89,12 @@ PasswordEncoder passwordEncoder;
 	}
 
 	@Override
+	public int notCompleteTodo(int id) throws DataAccessException {
+		int number = jdbc.update("UPDATE todo_items SET finished_date = ? WHERE id =?" , null,id);
+		return number;
+	}
+
+	@Override
 	public List<Todo> searchTodo(String search) throws DataAccessException {
 		List<Map<String,Object>> getTodo = jdbc.queryForList("SELECT * FROM todo_items inner join users on todo_items.user_id = users.id "
 				+ "WHERE item_name LIKE '%" + search + "%' "

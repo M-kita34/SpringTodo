@@ -73,6 +73,16 @@ public String postComplate(@RequestParam("id") int id,Model model) {
 	}
 }
 
+@PostMapping("/notComplete")
+public String postNotComplate(@RequestParam("id") int id,Model model) {
+	int number = todoService.notCompleteTodo(id);
+	if(number == 1){
+		return "redirect:/todoList";
+	}else {
+		return "error";
+	}
+}
+
 @PostMapping("/edit")
 public String postEdit(@RequestParam("id") int id, @ModelAttribute EditTodoForm form,Model model) {
 	Todo singleTodo = todoService.getSingleTodo(id);
