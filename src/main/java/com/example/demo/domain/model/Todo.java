@@ -1,5 +1,8 @@
 package com.example.demo.domain.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -49,17 +52,24 @@ public Todo(AddTodoForm form) {
 		this.family_name = null;
 	}
 public Todo(EditTodoForm form) {
-	Date today = new Date();
+	Calendar cal = Calendar.getInstance();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+	Date today = cal.getTime();
+		try {
+			sdf.parse(sdf.format(today));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	this.id = form.getId();
 	this.item_name = form.getItem_name();
 	this.user_id = (Integer)form.getUser();
 	this.expire_date = form.getExpire_date();
-	if(form.getFinished_date() != today && form.getEnd() == 1) {
-		this.finished_date = form.getFinished_date() ;
-	}else if(form.getEnd() == 1){
+	if(form.getFinished_date() !=today && form.getEnd() == 0) {
+		this.finished_date = null;
+	}else if(form.getFinished_date() == null && form.getEnd() == 1){
 		this.finished_date = today ;
 	}else {
-		this.finished_date = null ;
+		this.finished_date = form.getFinished_date();
 	}
 	this.is_deleted = 0 ;
 	this.registration_date = today;

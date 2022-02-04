@@ -9,7 +9,7 @@
 <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
-<title>Insert title here</title>
+<title>Todo更新画面</title>
 </head>
 <body>
 <div class="header">
@@ -64,9 +64,9 @@
 				<label>完了</label>
 			</th>
 			<th>
-				<input type="checkbox" name="*{end}" th:value="1"
-					   th:checked = "*{end} == 1 ? true : false">
-				<input type="hidden"   name="*{end}" th:value="0">完了
+				<input type="checkbox" name = "end" th:value=1
+					   th:checked = "*{end} == 1 ? true : false">完了
+				<input type="hidden" name = "end" th:value=0>
 			</th>
 		</tr>
 	</table>
