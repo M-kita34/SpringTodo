@@ -133,4 +133,9 @@ public String PostDelete(@RequestParam("id")int id,Model model) {
 		return "error";
 	}
 }
+
+@PostMapping("/logout")
+public String PostLogout() {
+	return "redirect:/login";
+}
 }
