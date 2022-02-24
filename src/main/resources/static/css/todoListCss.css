@@ -60,7 +60,7 @@ table tr:nth-child(even){
 .logout{
 	margin-left:5px;
 }
-.illust{
+.list{
 	background-image:url('/image/schedule.jpg');
 	width:100%;
 	background-size:100%;
