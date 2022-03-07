@@ -6,6 +6,11 @@ table{
 	font-size:18px;
 	padding:1px 1px;
 }
+.editForm{
+	padding-top:10px;
+	margin-bottom:5px;
+	margin-left:10px;
+}
 .title{
 	color:#FFF;
 	text-align:center;
@@ -19,6 +24,9 @@ table{
 .btn{
 	float :left ;
 	margin-right:5px;
+}
+.editBtn{
+	margin-top:5px;
 }
 .has-error{
 	background-color :#F37167 ;

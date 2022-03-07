@@ -2,7 +2,11 @@
 table{
 		font-size:18px;
 		padding:1px 1px;
-		margin-left:30px;
+}
+.deleteTodo{
+	padding-top:10px;
+	margin-bottom:5px;
+	margin-left:10px;
 }
 .red{
 	background-color :#F37167 !important ;
@@ -17,8 +21,11 @@ table tr:nth-child(odd){
 .center{
 	text-align: center
 }
+h2{
+	margin-left:10px;
+}
 .yes{
-	margin-left:30px;
+	margin-left:10px;
 }
 .no{
 	margin-left:5px;

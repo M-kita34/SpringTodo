@@ -16,64 +16,66 @@
 		<h1>追加する作業</h1>
 	</div>
 	<div  class="header-line"></div>
-	<form method="post" action="/addTodo" th:object="${addTodoForm}">
-		<table border="1">
-			 <tr>
-			 	<th>
-					<label class="title">Todo</label>
-				</th>
-				<th>
-					<input type="text" th:field="*{item_name}"
+	<div class="addForm">
+		<form method="post" action="/addTodo" th:object="${addTodoForm}">
+			<table border="1">
+				 <tr>
+				 	<th>
+						<label class="title">Todo</label>
+					</th>
+					<th>
+						<input type="text" th:field="*{item_name}"
+						th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
+						<br th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
+						<span class="error" th:classappend="${#fields.hasErrors('item_name')} ? 'errorMessage'"
+							th:errors="*{item_name}">
+							item_name error
+						</span>
+					</th>
+				 </tr>
+				 <tr>
+				 	<th>
+						<label class="title">担当者</label>
+					</th>
+					<th>
+						<select id="user" th:field="*{user}">
+							<option th:each="item:${userDate}"
+									th:text="${item.Family_name + item.First_name}" th:value="${item.id}"
+									th:field="*{user}">
+							</option>
+						</select>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<label class="title">期限</label>
+					</th>
+					<th>
+						<input type="date" th:field="*{expire_date}"
 					th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
-					<br th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
-					<span class="error" th:classappend="${#fields.hasErrors('item_name')} ? 'errorMessage'"
-						th:errors="*{item_name}">
+					<br th:classappend="${#fields.hasErrors('expire_date')} ? 'has-error'">
+					<span class="error" th:classappend="${#fields.hasErrors('expire_date')} ? 'errorMessage'"
+						th:errors="*{expire_date}">
 						item_name error
 					</span>
-				</th>
-			 </tr>
-			 <tr>
-			 	<th>
-					<label class="title">担当者</label>
-				</th>
-				<th>
-					<select id="user" th:field="*{user}">
-						<option th:each="item:${userDate}"
-								th:text="${item.Family_name + item.First_name}" th:value="${item.id}"
-								th:field="*{user}">
-						</option>
-					</select>
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<label class="title">期限</label>
-				</th>
-				<th>
-					<input type="date" th:field="*{expire_date}"
-				th:classappend="${#fields.hasErrors('item_name')} ? 'has-error'">
-				<br th:classappend="${#fields.hasErrors('expire_date')} ? 'has-error'">
-				<span class="error" th:classappend="${#fields.hasErrors('expire_date')} ? 'errorMessage'"
-					th:errors="*{expire_date}">
-					item_name error
-				</span>
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<label class="title">完了</label>
-				</th>
-				<th>
-					<input type="checkbox" th:value="1" th:field="*{complete}">
-					<input type="hidden"   th:value="0" th:field="*{complete}">完了
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<label class="title">完了</label>
+					</th>
+					<th>
+						<input type="checkbox" th:value="1" th:field="*{complete}">
+						<input type="hidden"   th:value="0" th:field="*{complete}">完了
 
-				</th>
-			</tr>
-		</table>
-		<input class="btn btn-primary" type="submit" value="登録">
-	</form>
-	<form method="get" action="/todoList">
-		<input class="btn btn-primary" type="submit" value="戻る">
-	</form>
+					</th>
+				</tr>
+			</table>
+			<input class="btn btn-primary addBtn" type="submit" value="登録">
+		</form>
+	</div>
+		<form method="get" action="/todoList">
+			<input class="btn btn-primary" type="submit" value="戻る">
+		</form>
 </body>
 </html>

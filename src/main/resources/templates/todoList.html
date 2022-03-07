@@ -46,14 +46,14 @@
 				<td th:text="${todo.finished_date}" th:unless="${todo.finished_date == null}"></td>
 				<td>
 					<div style="display:inline-flex">
-						<form class="editBtn" method="post" action="/notComplete"
-								th:unless="${todo.finished_date == null}">
-							<input type="submit" value="未完了">
-							<input type="hidden" name="id" th:value="${todo.id}">
-						</form>
 						<form class="editBtn" method="post" action="/complete"
 								th:if="${todo.finished_date == null}">
 							<input type="submit" value="完了">
+							<input type="hidden" name="id" th:value="${todo.id}">
+						</form>
+						<form class="editBtn" method="post" action="/notComplete"
+								th:unless="${todo.finished_date == null}">
+							<input type="submit" value="未完了">
 							<input type="hidden" name="id" th:value="${todo.id}">
 						</form>
 						<form class="editBtn" method="post" action="/edit">
